@@ -1,13 +1,17 @@
+<div align="center">
+  
+# Pollhammer Mail Archiv <br>
+</div>
+<p align="center">
+</p>
+
+
 ## 🛠 Personal Fork & Private Mail Archive
 
 > This is a personal fork of [Open Archiver](https://github.com/LogicLabs-OU/OpenArchiver), created for learning, experimentation, and hobby projects. It is also used as my private email archiving solution for my personal domain **"pollhammer.org"**. The focus is on exploring new ideas, testing custom features, and adapting the platform to my individual needs, while staying close to the upstream project to benefit from ongoing improvements and updates.
 
 
-# Pollhammer-Mail-Archiv
 
-This project is a fork of [Open Archiver](https://openarchiver.com), featuring specific adjustments and configurations for the Pollhammer setup.
-
----
 
 ## Overview
 
