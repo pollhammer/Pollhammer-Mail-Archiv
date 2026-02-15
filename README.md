@@ -11,14 +11,6 @@
 
 > This is a personal fork of [Open Archiver](https://github.com/LogicLabs-OU/OpenArchiver), created for learning, experimentation, and hobby projects. It is also used as my private email archiving solution for my personal domain **"pollhammer.org"**. The focus is on exploring new ideas, testing custom features, and adapting the platform to my individual needs, while staying close to the upstream project to benefit from ongoing improvements and updates.
 
-
-
-
-## Overview
-
-Pollhammer-Mail-Archiv is a self-hosted email archiving solution designed for secure, long-term storage and easy search of email data.  
-It is based on the Open Archiver project and adapted for a production-ready Pollhammer deployment.
-
 ---
 
 ## System Requirements
