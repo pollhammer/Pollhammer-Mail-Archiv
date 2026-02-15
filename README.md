@@ -106,7 +106,7 @@ docker compose up -d
 ![Login Page](https://github.com/pollhammer/Pollhammer-Mail-Archiv/blob/main/screenshots/Login.png)
 
 **Simple User Interface:**<br>
-A streamlined view for searching, viewing, and saving emails, without unnecessary complexity. ❗Pollhammer-specific❗
+A streamlined view for searching, viewing, and saving emails, without unnecessary complexity. ❗CUSTOM❗
 ![Simple UI](https://github.com/pollhammer/Pollhammer-Mail-Archiv/blob/main/screenshots/simple%20default%20UI.png)
 
 **Default User Role Generator:**<br>
