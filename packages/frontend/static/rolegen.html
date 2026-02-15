@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pollhammer Mail Archiv – User Role Generator</title>
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #020617; /* Einfarbiger Hintergrund */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #e5e7eb;
+    padding: 16px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 720px;
+    background: linear-gradient(180deg, #0b1220, #020617);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow:
+      0 30px 80px rgba(0,0,0,.7),
+      inset 0 1px 0 rgba(255,255,255,.04);
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .logo {
+    width: 48px;
+    height: 48px;
+    background: #ff5a1f;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+
+  .logo svg {
+    width: 26px;
+    height: 26px;
+    fill: #ffffff;
+  }
+
+  .header h1 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  .header span {
+    display: block;
+    font-size: 14px;
+    color: #9ca3af;
+    margin-top: 6px;
+  }
+
+  label {
+    display: block;
+    margin-top: 18px;
+    font-size: 13px;
+    color: #9ca3af;
+  }
+
+  input {
+    width: 100%;
+    margin-top: 6px;
+    padding: 13px 14px;
+    border-radius: 10px;
+    border: 1px solid #1f2937;
+    background: #020617;
+    color: #f9fafb;
+    outline: none;
+    font-size: 14px;
+    transition: border .2s, box-shadow .2s;
+  }
+
+  input::placeholder {
+    color: #6b7280;
+  }
+
+  input:focus {
+    border-color: #ff5a1f;
+    box-shadow: 0 0 0 2px rgba(255,90,31,.35);
+  }
+
+  .buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 26px;
+  }
+
+  button {
+    flex: 1;
+    padding: 13px;
+    border-radius: 10px;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background .2s, transform .1s;
+  }
+
+  button:active {
+    transform: scale(.98);
+  }
+
+  .primary {
+    background: #ff5a1f;
+    color: #ffffff;
+  }
+
+  .primary:hover {
+    background: #ff784b;
+  }
+
+  .secondary {
+    background: #111827;
+    color: #e5e7eb;
+    border: 1px solid #1f2937;
+  }
+
+  .secondary:hover {
+    background: #1f2937;
+  }
+
+  textarea {
+    width: 100%;
+    height: 260px;
+    margin-top: 24px;
+    padding: 14px;
+    border-radius: 12px;
+    background: #020617;
+    border: 1px solid #1f2937;
+    color: #d1d5db;
+    font-family: "JetBrains Mono", Consolas, monospace;
+    font-size: 13px;
+    resize: none;
+  }
+
+  /* Mobile Optimierung */
+  @media (max-width: 640px) {
+    .card {
+      padding: 22px;
+    }
+
+    .header h1 {
+      font-size: 20px;
+    }
+
+    .buttons {
+      flex-direction: column;
+    }
+
+    textarea {
+      height: 220px;
+      font-size: 12px;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <div class="header">
+    <div class="logo">
+      <!-- Mail Icon -->
+      <svg viewBox="0 0 24 24">
+        <path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6zm2 .5 8 5 8-5"/>
+      </svg>
+    </div>
+    <h1>Pollhammer Mail Archiv</h1>
+    <span>User Role Generator</span>
+  </div>
+
+  <label for="mailId">Postfach-ID</label>
+  <input id="mailId" placeholder="4c1f9a2e-7b63-4f0c-9e2a-8a6d2b5c1f47">
+
+  <label for="mailAddress">Mail-Adresse</label>
+  <input id="mailAddress" placeholder="vorname@pollhammer.org">
+
+  <div class="buttons">
+    <button class="primary" onclick="generate()">Code generieren</button>
+    <button class="secondary" onclick="copyToClipboard()">Code kopieren</button>
+  </div>
+
+  <textarea id="output" readonly></textarea>
+</div>
+
+<script>
+function generate() {
+  const mailId = document.getElementById("mailId").value;
+  const mailAddress = document.getElementById("mailAddress").value;
+
+  document.getElementById("output").value = `
+[
+  {
+    "action": ["manage"],
+    "subject": "ingestion",
+    "conditions": { "id": { "$in": ["${mailId}"] } }
+  },
+  {
+    "action": ["read"],
+    "subject": "archive",
+    "conditions": {
+      "ingestionSourceId": { "$in": ["${mailId}"] }
+    }
+  },
+  {
+    "action": ["search"],
+    "subject": "archive",
+    "conditions": {
+      "$or": [
+        { "from": "${mailAddress}" },
+        { "to": { "$in": ["${mailAddress}"] } },
+        { "cc": { "$in": ["${mailAddress}"] } },
+        { "bcc": { "$in": ["${mailAddress}"] } }
+      ],
+      "ingestionSourceId": { "$in": ["${mailId}"] }
+    }
+  }
+]
+`.trim();
+}
+
+function copyToClipboard() {
+  const t = document.getElementById("output");
+  t.select();
+  document.execCommand("copy");
+  alert("Code wurde kopiert!");
+}
+</script>
+
+</body>
+</html>
