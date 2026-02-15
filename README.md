@@ -32,7 +32,7 @@ It is based on the Open Archiver project and adapted for a production-ready Poll
 Clone this fork directly to your server:
 
 ```bash
-git clone https://github.com
+git clone https://github.com/pollhammer/Pollhammer-Mail-Archiv.git
 cd Pollhammer-Mail-Archiv
 ```
 ---
